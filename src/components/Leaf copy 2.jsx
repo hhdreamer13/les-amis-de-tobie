@@ -1,5 +1,5 @@
 /* eslint-disable import/no-unresolved */
-import { useRef, useLayoutEffect } from "react";
+import { useEffect, useRef, useLayoutEffect } from "react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/all";
 
@@ -27,21 +27,16 @@ import group5Leaf1 from "/leaf/group5-bushes-bottom.webp";
 import group5Leaf2 from "/leaf/group5-rock-right.webp";
 
 // import Tobie Sprite
-import spriteTobie from "/css_sprites.webp";
+import spriteTobie from "/css_sprites.png";
 
-// import run scene frames
-const frameCount = 39; // Number of frames in your animation
-const images = []; // Array to store your image frames
-const tobie = { frame: 0 }; // Object to keep track of the current frame
+// Image preloading
+// new Image().src = group1Leaf1;
 
-// Load each image frame into the array
-for (let i = 0; i < frameCount; i++) {
-  const img = new Image();
-  img.src = `/tobie-run-scene/tobie${i + 1}.png`;
-  images.push(img);
-}
-
-gsap.registerPlugin(ScrollTrigger);
+// gsap.config({
+//   autoSleep: 60,
+//   force3D: true,
+//   units: { left: "%", top: "%", rotation: "rad" },
+// });
 
 /**
  * Component
@@ -57,115 +52,74 @@ const Leaf = () => {
 
   const tobieRef = useRef();
 
-  useLayoutEffect(() => {
-    if (
-      group1Refs.current &&
-      group2Refs.current &&
-      group3Refs.current &&
-      group4Refs.current &&
-      group5Refs.current
-    ) {
-      // Create a GSAP context
-      let ctx = gsap.context(() => {
-        // animation helper function
-        const animate = (
-          groupRefs,
-          end,
-          xPercentPos = 100,
-          xPercentNeg = -100
-        ) => {
-          groupRefs.current.forEach((leaf) => {
-            const position = leaf.dataset.position;
-            let xPercent = 0;
-            let yPercent = 0;
+  // animation helper function
+  const animate = (groupRefs, end, xPercentPos = 100, xPercentNeg = -100) => {
+    groupRefs.current.forEach((leaf) => {
+      const position = leaf.dataset.position;
+      let xPercent = 0;
+      let yPercent = 0;
 
-            // Define final direction of movement based on position
-            if (position.includes("left")) {
-              xPercent = xPercentNeg;
-            } else if (position.includes("right")) {
-              xPercent = xPercentPos;
-            }
+      // Define final direction of movement based on position
+      if (position.includes("left")) {
+        xPercent = xPercentNeg;
+      } else if (position.includes("right")) {
+        xPercent = xPercentPos;
+      }
 
-            if (position.includes("top")) {
-              yPercent = -100;
-            } else if (position.includes("bottom")) {
-              yPercent = 100;
-            }
+      if (position.includes("top")) {
+        yPercent = -100;
+      } else if (position.includes("bottom")) {
+        yPercent = 100;
+      }
 
-            gsap.to(leaf, {
-              scrollTrigger: {
-                trigger: leaf,
-                start: "top 0", // When the top of the element hits the bottom of the viewport
-                end: end,
-                scrub: 1,
-                markers: true,
-              },
-              xPercent: xPercent,
-              yPercent: yPercent,
-            });
-          });
-        };
-
-        animate(group1Refs, "200% bottom");
-        animate(group2Refs, "400% bottom");
-        animate(group3Refs, "600% bottom", 200); // Use 200 for branch of group 3
-        animate(group4Refs, "800% bottom");
-        animate(group5Refs, "1000% bottom");
-      });
-
-      return () => ctx.revert(); // Cleanup animations when component unmounts
-    }
-  }, []);
-
-  useLayoutEffect(() => {
-    if (tobieRef.current) {
-      const canvas = tobieRef.current;
-      const context = canvas.getContext("2d");
-
-      // Get the device pixel ratio
-      const pixelRatio = window.devicePixelRatio || 1;
-
-      // Set canvas size and style considering pixel ratio
-      const targetWidth = window.innerWidth;
-      const targetHeight = window.innerHeight;
-
-      canvas.width = targetWidth * pixelRatio;
-      canvas.height = targetHeight * pixelRatio;
-
-      canvas.style.width = `${targetWidth}px`;
-      canvas.style.height = `${targetHeight}px`;
-
-      // Modify context based on pixel ratio
-      context.scale(pixelRatio, pixelRatio);
-
-      // Animate the image sequence with GSAP
-      gsap.to(tobie, {
-        frame: frameCount - 1,
-        snap: "frame",
-        ease: "none",
+      gsap.to(leaf, {
         scrollTrigger: {
-          trigger: tobieRef.current,
+          trigger: leaf,
           start: "top 0", // When the top of the element hits the bottom of the viewport
-          end: "900% bottom",
+          end: end,
           scrub: 1,
           markers: true,
         },
-        onUpdate: () => {
-          context.clearRect(
-            0,
-            0,
-            tobieRef.current.width,
-            tobieRef.current.height
-          );
-          context.drawImage(
-            images[tobie.frame],
-            0,
-            0,
-            tobieRef.current.width / pixelRatio,
-            tobieRef.current.height / pixelRatio
-          );
-        },
+        xPercent: xPercent,
+        yPercent: yPercent,
       });
+    });
+  };
+
+  useEffect(() => {
+    if (group1Refs.current) {
+      gsap.registerPlugin(ScrollTrigger);
+      const totalHeight = document.documentElement.scrollHeight;
+      const viewportHeight = window.innerHeight;
+
+      animate(group1Refs, "200% bottom");
+      animate(group2Refs, "400% bottom");
+      animate(group3Refs, "600% bottom", 200); // Use 200 for branch of group 3
+      animate(group4Refs, "800% bottom");
+      animate(group5Refs, "1000% bottom");
+    }
+  }, []);
+  useEffect(() => {
+    if (tobieRef.current) {
+      const sprite = tobieRef.current;
+      const parentDiv = sprite.parentElement;
+
+      const image = new Image();
+      image.src = sprite.src;
+
+      image.onload = () => {
+        const spriteHeight = image.height;
+        const frameCount = 39;
+        const singleFrameHeight = spriteHeight / frameCount;
+
+        parentDiv.style.height = `${singleFrameHeight}px`;
+
+        gsap.to(sprite, {
+          y: `-${spriteHeight + singleFrameHeight}`,
+          duration: 2,
+          ease: `steps(${frameCount})`,
+        });
+      };
     }
   }, []);
 
@@ -179,10 +133,6 @@ const Leaf = () => {
             src='/leaf/bg-1080.webp'
             alt='background'
           />
-          {/* Tobie animation */}
-          <div className='absolute overflow-hidden w-screen h-screen'>
-            <canvas className='fullscreenImage' ref={tobieRef} id='sprite' />
-          </div>
           {/* Group 5 */}
           <img
             ref={(el) => group5Refs.current.push(el)}
@@ -308,6 +258,15 @@ const Leaf = () => {
             data-group='1'
             data-position='right-top'
           />
+          <div className='absolute overflow-hidden border-4'>
+            <img
+              className=''
+              ref={tobieRef}
+              id='sprite'
+              src={spriteTobie}
+              alt='tobie'
+            />
+          </div>
         </div>
       </div>
     </>
