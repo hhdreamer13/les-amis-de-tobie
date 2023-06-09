@@ -75,20 +75,161 @@ const Leaf = () => {
         scrollTrigger: {
           trigger: leaf,
           start: "top 0", // When the top of the element hits the bottom of the viewport
-          end: "bottom top", // When the bottom of the element hits the top of the viewport
+          end: "200% bottom", // When the bottom of the element hits the top of the viewport
           scrub: 1,
+          markers: true,
         },
         xPercent: xPercent,
         yPercent: yPercent,
-        // scale: 2,
-        // duration: 1,
-        // ease: "power1.inOut",
       });
     });
 
     // Animation for group 2
     group2Refs.current.forEach((leaf) => {
-      // animate leaf
+      const position = leaf.dataset.position;
+      let xPercent = 0;
+      let yPercent = 0;
+
+      // Define final direction of movement based on position
+      if (position.includes("left")) {
+        xPercent = -100;
+      } else if (position.includes("right")) {
+        xPercent = 100;
+      }
+
+      if (position.includes("top")) {
+        yPercent = -100;
+      } else if (position.includes("bottom")) {
+        yPercent = 100;
+      }
+
+      gsap.set(leaf, {
+        xPercent: 0,
+        yPercent: 0,
+      });
+
+      gsap.to(leaf, {
+        scrollTrigger: {
+          trigger: leaf,
+          start: "top 0", // When the top of the element hits the bottom of the viewport
+          end: "400% bottom", // When the bottom of the element hits the top of the viewport
+          scrub: 1,
+          markers: true,
+        },
+        xPercent: xPercent,
+        yPercent: yPercent,
+      });
+    });
+
+    // Animation for group 3
+    group3Refs.current.forEach((leaf) => {
+      const position = leaf.dataset.position;
+      let xPercent = 0;
+      let yPercent = 0;
+
+      // Define final direction of movement based on position
+      if (position.includes("left")) {
+        xPercent = -100;
+      } else if (position.includes("right")) {
+        xPercent = 200;
+      }
+
+      if (position.includes("top")) {
+        yPercent = -100;
+      } else if (position.includes("bottom")) {
+        yPercent = 100;
+      }
+
+      gsap.set(leaf, {
+        xPercent: 0,
+        yPercent: 0,
+      });
+
+      gsap.to(leaf, {
+        scrollTrigger: {
+          trigger: leaf,
+          start: "top 0", // When the top of the element hits the bottom of the viewport
+          end: "600% bottom", // When the bottom of the element hits the top of the viewport
+          scrub: 1,
+          markers: true,
+        },
+        xPercent: xPercent,
+        yPercent: yPercent,
+      });
+    });
+
+    // Animation for group 4
+    group4Refs.current.forEach((leaf) => {
+      const position = leaf.dataset.position;
+      let xPercent = 0;
+      let yPercent = 0;
+
+      // Define final direction of movement based on position
+      if (position.includes("left")) {
+        xPercent = -100;
+      } else if (position.includes("right")) {
+        xPercent = 100;
+      }
+
+      if (position.includes("top")) {
+        yPercent = -100;
+      } else if (position.includes("bottom")) {
+        yPercent = 100;
+      }
+
+      gsap.set(leaf, {
+        xPercent: 0,
+        yPercent: 0,
+      });
+
+      gsap.to(leaf, {
+        scrollTrigger: {
+          trigger: leaf,
+          start: "top 0", // When the top of the element hits the bottom of the viewport
+          end: "800% bottom", // When the bottom of the element hits the top of the viewport
+          scrub: 1,
+          markers: true,
+        },
+        xPercent: xPercent,
+        yPercent: yPercent,
+      });
+    });
+
+    // Animation for group 5
+    group5Refs.current.forEach((leaf) => {
+      const position = leaf.dataset.position;
+      let xPercent = 0;
+      let yPercent = 0;
+
+      // Define final direction of movement based on position
+      if (position.includes("left")) {
+        xPercent = -100;
+      } else if (position.includes("right")) {
+        xPercent = 100;
+      }
+
+      if (position.includes("top")) {
+        yPercent = -100;
+      } else if (position.includes("bottom")) {
+        yPercent = 100;
+      }
+
+      gsap.set(leaf, {
+        xPercent: 0,
+        yPercent: 0,
+      });
+
+      gsap.to(leaf, {
+        scrollTrigger: {
+          trigger: leaf,
+          start: "top 0", // When the top of the element hits the bottom of the viewport
+          end: "1000% bottom", // When the bottom of the element hits the top of the viewport
+          scrub: 1,
+          markers: true,
+        },
+        xPercent: xPercent,
+        yPercent: yPercent,
+      });
     });
 
     // And so on for the other groups...
@@ -106,6 +247,7 @@ const Leaf = () => {
           />
           {/* Group 5 */}
           <img
+            ref={(el) => group5Refs.current.push(el)}
             className='absolute fullscreenImage'
             src={group5Leaf1}
             alt='Leaf'
@@ -113,29 +255,33 @@ const Leaf = () => {
             data-position='bottom'
           />
           <img
+            ref={(el) => group5Refs.current.push(el)}
             className='absolute fullscreenImage'
             src={group5Leaf2}
             alt='Leaf'
             data-group='5'
-            data-position='right'
+            data-position='right-bottom'
           />
           {/* Group 4 */}
           <img
+            ref={(el) => group4Refs.current.push(el)}
             className='absolute fullscreenImage'
             src={group4Leaf1}
             alt='Leaf'
             data-group='4'
-            data-position='left'
+            data-position='left-bottom'
           />
           <img
+            ref={(el) => group4Refs.current.push(el)}
             className='absolute fullscreenImage'
             src={group4Leaf2}
             alt='Leaf'
             data-group='4'
-            data-position='right'
+            data-position='right-bottom'
           />
           {/* Group 3 */}
           <img
+            ref={(el) => group3Refs.current.push(el)}
             className='absolute fullscreenImage'
             src={group3Leaf1}
             alt='Leaf'
@@ -143,6 +289,7 @@ const Leaf = () => {
             data-position='left'
           />
           <img
+            ref={(el) => group3Refs.current.push(el)}
             className='absolute fullscreenImage'
             src={group3Leaf2}
             alt='Leaf'
