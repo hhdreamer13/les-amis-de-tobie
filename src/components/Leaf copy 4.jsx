@@ -204,14 +204,17 @@ const Leaf = () => {
             canvas.height
           );
         },
-        onComplete: () => {
-          // When Tobie animation is done, reveal the text
-          gsap.to(textRef.current, {
-            opacity: 1,
-            duration: 2,
-            ease: "power2.out",
-          });
-        },
+        // onComplete: () => {
+        //   // When Tobie animation is done, reveal the text
+        //   gsap.fromTo(
+        //     textRef.current,
+        //     { opacity: 0 },
+        //     {
+        //       opacity: 1,
+        //       duration: 1, // 1 second transition
+        //     }
+        //   );
+        // },
       });
     }
   }, [tobieRef, bgRef, textRef]);
@@ -243,23 +246,21 @@ const Leaf = () => {
             src={group0Leaf2}
             alt='Leaf'
           />
-          {/* Text */}
-          <div
-            ref={textRef}
-            className='absolute fullscreenImage'
-            style={{ opacity: 0 }}
-          >
-            <h1 className='flex items-center h-full justify-center font-mottona text-9xl text-center text-amber-950'>
-              Les amis de <br />
-              Tobie
-            </h1>
-          </div>
           {/* Tobie animation */}
           <canvas
             ref={tobieRef}
-            className='absolute border-2 top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2'
+            className='absolute border-2 top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 border-red-400'
             id='sprite'
           />
+          <div
+            ref={textRef}
+            className='absolute fullscreenImage'
+            // style={{ opacity: 0 }}
+          >
+            <h1 className='font-mottona text-8xl left-1/2 top-1/2'>
+              Les amis de Tobie
+            </h1>
+          </div>
 
           {/* Group 5 */}
           <img

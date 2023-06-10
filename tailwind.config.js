@@ -5,7 +5,9 @@ export default {
     extend: {
       backgroundImage: {
         "image-back": "url('/leaf/bg-1080.webp')",
-        "footer-texture": "url('/img/footer-texture.png')",
+      },
+      fontFamily: {
+        mottona: ["mottona", "cursive"],
       },
     },
   },

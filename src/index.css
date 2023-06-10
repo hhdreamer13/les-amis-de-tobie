@@ -2,6 +2,11 @@
 @tailwind components;
 @tailwind utilities;
 
+@font-face {
+  font-family: "mottona";
+  src: url("/fonts/mottona.otf");
+}
+
 .fullscreenImage {
   @apply w-screen h-screen object-cover object-center will-change-transform;
 }
