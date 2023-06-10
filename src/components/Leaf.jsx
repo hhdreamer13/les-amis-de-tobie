@@ -1,7 +1,9 @@
 /* eslint-disable import/no-unresolved */
-import { useRef, useLayoutEffect } from "react";
+import { useRef, useLayoutEffect, useEffect } from "react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/all";
+
+import InputForm from "./InputForm/InputForm";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -63,6 +65,12 @@ const Leaf = () => {
   const bgRef = useRef();
 
   const textRef = useRef();
+  const formRef = useRef();
+
+  // Scroll to the top of the page whenever the component is mounted
+  useEffect(() => {
+    window.scrollTo({ top: 0, behavior: "auto" });
+  }, []);
 
   /**
    * Leaf exit animation
@@ -102,7 +110,6 @@ const Leaf = () => {
                 start: "top 0", // When the top of the element hits the bottom of the viewport
                 end: end,
                 scrub: 1,
-                markers: true,
               },
               xPercent: xPercent,
               yPercent: yPercent,
@@ -186,7 +193,7 @@ const Leaf = () => {
         scrollTrigger: {
           trigger: tobieRef.current,
           scrub: 1,
-          start: "bottom 0",
+          start: "center 0",
           end: "400% bottom",
         },
         onUpdate: () => {
@@ -204,67 +211,79 @@ const Leaf = () => {
             canvas.height
           );
         },
-        onComplete: () => {
-          // When Tobie animation is done, reveal the text
-          gsap.to(textRef.current, {
-            opacity: 1,
-            duration: 2,
-            ease: "power2.out",
-          });
-        },
       });
     }
-  }, [tobieRef, bgRef, textRef]);
+  }, [tobieRef, bgRef]);
+
+  /**
+   * Text animation
+   */
+  useLayoutEffect(() => {
+    gsap.to(textRef.current, {
+      scrollTrigger: {
+        trigger: textRef.current,
+        start: "200% top",
+        end: "400% bottom",
+        scrub: 1,
+      },
+      opacity: 1,
+      duration: 3,
+      ease: "power2.inOut",
+    });
+
+    gsap.to(formRef.current, {
+      scrollTrigger: {
+        trigger: formRef.current,
+        start: "500% top",
+        end: "800% bottom",
+        scrub: true,
+      },
+      opacity: 1,
+      y: 0,
+      duration: 1,
+      ease: "power2.out",
+    });
+  });
 
   return (
     <>
       <div style={{ height: `${scrollPages * 100}vh` }}>
-        <div className='fixed w-full h-screen overflow-hidden'>
+        <div className='fixed h-screen w-full overflow-hidden bg-[#d6fdf9]'>
           {/* Background Image */}
           <img
             ref={bgRef}
-            className='absolute fullscreenImage'
+            className='fullscreenImage absolute'
             src='/leaf/bg-1080.webp'
             alt='background'
           />
           {/* Still leafs */}
           <img
-            className='absolute fullscreenImage'
+            className='fullscreenImage absolute'
             src={group0Leaf0}
             alt='Leaf'
           />
           <img
-            className='absolute fullscreenImage'
+            className='fullscreenImage absolute'
             src={group0Leaf1}
             alt='Leaf'
           />
           <img
-            className='absolute fullscreenImage'
+            className='fullscreenImage absolute'
             src={group0Leaf2}
             alt='Leaf'
           />
-          {/* Text */}
-          <div
-            ref={textRef}
-            className='absolute fullscreenImage'
-            style={{ opacity: 0 }}
-          >
-            <h1 className='flex items-center h-full justify-center font-mottona text-9xl text-center text-amber-950'>
-              Les amis de <br />
-              Tobie
-            </h1>
-          </div>
+
           {/* Tobie animation */}
           <canvas
             ref={tobieRef}
-            className='absolute border-2 top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2'
+            className='absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 border-2'
             id='sprite'
           />
 
           {/* Group 5 */}
           <img
             ref={(el) => group5Refs.current.push(el)}
-            className='absolute fullscreenImage'
+            className='fullscreenImage absolute'
             src={group5Leaf1}
             alt='Leaf'
             data-group='5'
@@ -272,7 +291,7 @@ const Leaf = () => {
           />
           <img
             ref={(el) => group5Refs.current.push(el)}
-            className='absolute fullscreenImage'
+            className='fullscreenImage absolute'
             src={group5Leaf2}
             alt='Leaf'
             data-group='5'
@@ -281,7 +300,7 @@ const Leaf = () => {
           {/* Group 4 */}
           <img
             ref={(el) => group4Refs.current.push(el)}
-            className='absolute fullscreenImage'
+            className='fullscreenImage absolute'
             src={group4Leaf1}
             alt='Leaf'
             data-group='4'
@@ -289,7 +308,7 @@ const Leaf = () => {
           />
           <img
             ref={(el) => group4Refs.current.push(el)}
-            className='absolute fullscreenImage'
+            className='fullscreenImage absolute'
             src={group4Leaf2}
             alt='Leaf'
             data-group='4'
@@ -298,7 +317,7 @@ const Leaf = () => {
           {/* Group 3 */}
           <img
             ref={(el) => group3Refs.current.push(el)}
-            className='absolute fullscreenImage'
+            className='fullscreenImage absolute'
             src={group3Leaf1}
             alt='Leaf'
             data-group='3'
@@ -306,7 +325,7 @@ const Leaf = () => {
           />
           <img
             ref={(el) => group3Refs.current.push(el)}
-            className='absolute fullscreenImage'
+            className='fullscreenImage absolute'
             src={group3Leaf2}
             alt='Leaf'
             data-group='3'
@@ -315,7 +334,7 @@ const Leaf = () => {
           {/* Group 2 */}
           <img
             ref={(el) => group2Refs.current.push(el)}
-            className='absolute fullscreenImage'
+            className='fullscreenImage absolute'
             src={group2Leaf1}
             alt='Leaf'
             data-group='2'
@@ -323,7 +342,7 @@ const Leaf = () => {
           />
           <img
             ref={(el) => group2Refs.current.push(el)}
-            className='absolute fullscreenImage'
+            className='fullscreenImage absolute'
             src={group2Leaf2}
             alt='Leaf'
             data-group='2'
@@ -331,7 +350,7 @@ const Leaf = () => {
           />
           <img
             ref={(el) => group2Refs.current.push(el)}
-            className='absolute fullscreenImage'
+            className='fullscreenImage absolute'
             src={group2Leaf3}
             alt='Leaf'
             data-group='2'
@@ -339,7 +358,7 @@ const Leaf = () => {
           />
           <img
             ref={(el) => group2Refs.current.push(el)}
-            className='absolute fullscreenImage'
+            className='fullscreenImage absolute'
             src={group2Leaf4}
             alt='Leaf'
             data-group='2'
@@ -347,7 +366,7 @@ const Leaf = () => {
           />
           <img
             ref={(el) => group2Refs.current.push(el)}
-            className='absolute fullscreenImage'
+            className='fullscreenImage absolute'
             src={group2Leaf5}
             alt='Leaf'
             data-group='2'
@@ -356,7 +375,7 @@ const Leaf = () => {
           {/* Group 1 */}
           <img
             ref={(el) => group1Refs.current.push(el)}
-            className='absolute fullscreenImage'
+            className='fullscreenImage absolute'
             src={group1Leaf1}
             alt='Leaf'
             data-group='1'
@@ -364,7 +383,7 @@ const Leaf = () => {
           />
           <img
             ref={(el) => group1Refs.current.push(el)}
-            className='absolute fullscreenImage'
+            className='fullscreenImage absolute'
             src={group1Leaf2}
             alt='Leaf'
             data-group='1'
@@ -372,7 +391,7 @@ const Leaf = () => {
           />
           <img
             ref={(el) => group1Refs.current.push(el)}
-            className='absolute fullscreenImage'
+            className='fullscreenImage absolute'
             src={group1Leaf3}
             alt='Leaf'
             data-group='1'
@@ -380,12 +399,33 @@ const Leaf = () => {
           />
           <img
             ref={(el) => group1Refs.current.push(el)}
-            className='absolute fullscreenImage'
+            className='fullscreenImage absolute'
             src={group1Leaf4}
             alt='Leaf'
             data-group='1'
             data-position='right-top'
           />
+          {/* Text */}
+          <div
+            ref={textRef}
+            className='fullscreenImage absolute'
+            style={{ opacity: 0 }}
+          >
+            <div className='flex h-full flex-col items-center justify-center gap-11'>
+              <h1 className='text-center font-mottona text-8xl text-amber-900 md:text-9xl'>
+                <span className='text-8xl'>Les amis de</span> <br />
+                <span>Tobie</span>
+              </h1>
+              <div
+                ref={formRef}
+                className=''
+                //  style={{ opacity: 0 }}
+              >
+                <InputForm />
+              </div>
+            </div>
+          </div>
+          {/* Form */}
         </div>
       </div>
     </>
