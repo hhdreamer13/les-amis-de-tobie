@@ -180,9 +180,13 @@ const Leaf = () => {
             alt='background'
           />
           {/* Tobie animation */}
-          <div className='absolute overflow-hidden w-screen h-screen'>
-            <canvas className='fullscreenImage' ref={tobieRef} id='sprite' />
-          </div>
+
+          <canvas
+            className='absolute fullscreenImage'
+            ref={tobieRef}
+            id='sprite'
+          />
+
           {/* Group 5 */}
           <img
             ref={(el) => group5Refs.current.push(el)}

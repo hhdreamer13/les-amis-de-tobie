@@ -5,3 +5,17 @@
 .fullscreenImage {
   @apply w-screen h-screen object-cover object-center will-change-transform;
 }
+
+/* Hide scrollbar for Chrome, Safari and Opera */
+
+/* ::-webkit-scrollbar {
+  display: none;
+} */
+
+/* Hide scrollbar for IE, Edge and Firefox */
+
+/* html,
+body {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+} */
