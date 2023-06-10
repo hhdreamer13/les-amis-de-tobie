@@ -3,6 +3,8 @@ import { useRef, useLayoutEffect } from "react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/all";
 
+gsap.registerPlugin(ScrollTrigger);
+
 /**
  * Import layers
  */
@@ -26,11 +28,14 @@ import group4Leaf2 from "/leaf/group4-bushes-right.webp";
 import group5Leaf1 from "/leaf/group5-bushes-bottom.webp";
 import group5Leaf2 from "/leaf/group5-rock-right.webp";
 
-// import Tobie Sprite
-import spriteTobie from "/css_sprites.webp";
+import group0Leaf0 from "/leaf/group0-leaf-left-top.webp";
+import group0Leaf1 from "/leaf/group0-leaf-left.webp";
+import group0Leaf2 from "/leaf/group0-leaf-right.webp";
 
-// import run scene frames
-const frameCount = 39; // Number of frames in your animation
+/**
+ * Tobie frames load
+ */
+const frameCount = 41; // Number of frames in your animation
 const images = []; // Array to store your image frames
 const tobie = { frame: 0 }; // Object to keep track of the current frame
 
@@ -41,14 +46,13 @@ for (let i = 0; i < frameCount; i++) {
   images.push(img);
 }
 
-gsap.registerPlugin(ScrollTrigger);
-
 /**
  * Component
  */
 const Leaf = () => {
   const scrollPages = 10;
 
+  // Refs
   const group1Refs = useRef([]);
   const group2Refs = useRef([]);
   const group3Refs = useRef([]);
@@ -56,7 +60,11 @@ const Leaf = () => {
   const group5Refs = useRef([]);
 
   const tobieRef = useRef();
+  const bgRef = useRef();
 
+  /**
+   * Leaf exit animation
+   */
   useLayoutEffect(() => {
     if (
       group1Refs.current &&
@@ -117,26 +125,42 @@ const Leaf = () => {
     }
   }, []);
 
+  /**
+   * Tobie run animation
+   */
+
+  // Calculate the portion of the frame to be drawn
+  function calculateSourceRect() {
+    const bgAspectRatio =
+      bgRef.current.naturalWidth / bgRef.current.naturalHeight;
+    const viewportAspectRatio = window.innerWidth / window.innerHeight;
+
+    let sx, sy, sWidth, sHeight;
+
+    if (viewportAspectRatio > bgAspectRatio) {
+      // Width is fitting, height is being cropped
+      sWidth = bgRef.current.naturalWidth;
+      sHeight = bgRef.current.naturalWidth / viewportAspectRatio;
+      sx = 0;
+      sy = (bgRef.current.naturalHeight - sHeight) / 2;
+    } else {
+      // Height is fitting, width is being cropped
+      sHeight = bgRef.current.naturalHeight;
+      sWidth = bgRef.current.naturalHeight * viewportAspectRatio;
+      sx = (bgRef.current.naturalWidth - sWidth) / 2;
+      sy = 0;
+    }
+
+    return [sx, sy, sWidth, sHeight];
+  }
+
   useLayoutEffect(() => {
     if (tobieRef.current) {
       const canvas = tobieRef.current;
       const context = canvas.getContext("2d");
 
-      // Get the device pixel ratio
-      const pixelRatio = window.devicePixelRatio || 1;
-
-      // Set canvas size and style considering pixel ratio
-      const targetWidth = window.innerWidth;
-      const targetHeight = window.innerHeight;
-
-      canvas.width = targetWidth * pixelRatio;
-      canvas.height = targetHeight * pixelRatio;
-
-      canvas.style.width = `${targetWidth}px`;
-      canvas.style.height = `${targetHeight}px`;
-
-      // Modify context based on pixel ratio
-      context.scale(pixelRatio, pixelRatio);
+      canvas.width = bgRef.current.width;
+      canvas.height = bgRef.current.height;
 
       // Animate the image sequence with GSAP
       gsap.to(tobie, {
@@ -145,24 +169,23 @@ const Leaf = () => {
         ease: "none",
         scrollTrigger: {
           trigger: tobieRef.current,
-          start: "top 0", // When the top of the element hits the bottom of the viewport
-          end: "900% bottom",
           scrub: 1,
-          markers: true,
+          start: "top 0",
+          end: "900% bottom",
         },
         onUpdate: () => {
-          context.clearRect(
-            0,
-            0,
-            tobieRef.current.width,
-            tobieRef.current.height
-          );
+          context.clearRect(0, 0, canvas.width, canvas.height);
+          const [sx, sy, sWidth, sHeight] = calculateSourceRect();
           context.drawImage(
             images[tobie.frame],
+            sx,
+            sy,
+            sWidth,
+            sHeight,
             0,
             0,
-            tobieRef.current.width / pixelRatio,
-            tobieRef.current.height / pixelRatio
+            canvas.width,
+            canvas.height
           );
         },
       });
@@ -175,15 +198,31 @@ const Leaf = () => {
         <div className='fixed w-full h-screen overflow-hidden'>
           {/* Background Image */}
           <img
+            ref={bgRef}
             className='absolute fullscreenImage'
             src='/leaf/bg-1080.webp'
             alt='background'
           />
-          {/* Tobie animation */}
-
-          <canvas
+          {/* Still leafs */}
+          <img
             className='absolute fullscreenImage'
+            src={group0Leaf0}
+            alt='Leaf'
+          />
+          <img
+            className='absolute fullscreenImage'
+            src={group0Leaf1}
+            alt='Leaf'
+          />
+          <img
+            className='absolute fullscreenImage'
+            src={group0Leaf2}
+            alt='Leaf'
+          />
+          {/* Tobie animation */}
+          <canvas
             ref={tobieRef}
+            className='absolute border-2 top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 border-red-400'
             id='sprite'
           />
 
