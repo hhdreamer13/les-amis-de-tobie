@@ -72,6 +72,8 @@ const Leaf = () => {
   const textRef = useRef();
   const formRef = useRef();
 
+  const scrollRef = useRef();
+
   // Scroll to the top of the page whenever the component is mounted
   useEffect(() => {
     window.scrollTo({ top: 0, behavior: "auto" });
@@ -283,6 +285,19 @@ const Leaf = () => {
     });
   }, [formRef]);
 
+  useLayoutEffect(() => {
+    gsap.to(scrollRef.current, {
+      scrollTrigger: {
+        trigger: scrollRef.current,
+        start: "10% top", // when top of divRef is 10% from top of the viewport
+        toggleActions: "play none none reverse",
+        // markers: true,
+      },
+      autoAlpha: 0,
+      duration: 1,
+    });
+  }, []);
+
   return (
     <>
       <div style={{ height: `${scrollPages * 100}vh` }}>
@@ -450,7 +465,16 @@ const Leaf = () => {
             src='/leaf/bg-secondary.webp'
             alt='background'
           />
-          {/* Text */}
+          {/* Scroll icon */}
+          <div
+            ref={scrollRef}
+            className='fullscreenImage absolute flex h-full w-full items-center justify-center'
+          >
+            <div className='relative h-[60px] w-[30px] rounded-[15px] border-[3px] border-solid border-amber-200'>
+              <div className='absolute bottom-[34px] left-1 top-1 w-4 animate-[scroller_2000ms_ease-out_infinite] rounded-lg bg-lime-300'></div>
+            </div>
+          </div>
+          {/* Text Tobie */}
           <div
             ref={textRef}
             className='fullscreenImage absolute'
@@ -468,6 +492,7 @@ const Leaf = () => {
               </h1>
             </div>
           </div>
+          {/* Form */}
           <div
             ref={formRef}
             className='fullscreenImage absolute'

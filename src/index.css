@@ -13,11 +13,25 @@
   @apply h-screen w-screen object-cover object-center will-change-transform;
 }
 
-/* @media screen and (max-width: 600px) {
-  .fullscreenImage {
-    @apply h-screen w-screen object-contain object-center will-change-transform;
+@keyframes scroller {
+  0% {
+    bottom: 34px;
   }
-} */
+  5% {
+    top: 4px;
+  }
+  32% {
+    bottom: 4px;
+  }
+  66% {
+    top: 34px;
+    bottom: 4px;
+  }
+  100% {
+    top: 4px;
+    bottom: 34px;
+  }
+}
 
 /* Hide scrollbar for Chrome, Safari and Opera */
 /* ::-webkit-scrollbar {
