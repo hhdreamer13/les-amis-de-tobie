@@ -296,7 +296,7 @@ const Leaf = () => {
       autoAlpha: 0,
       duration: 1,
     });
-  }, []);
+  }, [scrollRef]);
 
   return (
     <>
