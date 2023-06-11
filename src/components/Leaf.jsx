@@ -273,7 +273,7 @@ const Leaf = () => {
       scrollTrigger: {
         trigger: formRef.current,
         start: "700% top",
-        end: "850% center",
+        end: "950% center",
         scrub: 1,
         // markers: true,
       },
