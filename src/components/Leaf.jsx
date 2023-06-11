@@ -6,6 +6,7 @@ import { ScrollTrigger } from "gsap/all";
 import InputForm from "./InputForm/InputForm";
 
 gsap.registerPlugin(ScrollTrigger);
+ScrollTrigger.normalizeScroll(true);
 
 /**
  * Import layers
@@ -52,7 +53,7 @@ for (let i = 0; i < frameCount; i++) {
  * Component
  */
 const Leaf = () => {
-  const scrollPages = 10;
+  const scrollPages = 4;
 
   // Refs
   const group1Refs = useRef([]);
@@ -79,12 +80,7 @@ const Leaf = () => {
     // Create a GSAP context
     let ctx = gsap.context(() => {
       // animation helper function
-      const animate = (
-        groupRefs,
-        end,
-        xPercentPos = 100,
-        xPercentNeg = -100
-      ) => {
+      const animate = (groupRefs, end, xPercentPos = 50, xPercentNeg = -50) => {
         groupRefs.current.forEach((leaf) => {
           if (leaf && leaf.dataset && leaf.dataset.position) {
             const position = leaf.dataset.position;
@@ -99,30 +95,38 @@ const Leaf = () => {
             }
 
             if (position.includes("top")) {
-              yPercent = -100;
+              yPercent = -50;
             } else if (position.includes("bottom")) {
-              yPercent = 100;
+              yPercent = 50;
             }
 
             gsap.to(leaf, {
               scrollTrigger: {
                 trigger: leaf,
-                start: "top 0", // When the top of the element hits the bottom of the viewport
+                start: "top top", // When the top of the element hits the bottom of the viewport
                 end: end,
                 scrub: 1,
+                markers: {
+                  startColor: "blue",
+                  endColor: "fuchsia",
+                  fontSize: "1rem",
+                  indent: 20,
+                },
               },
               xPercent: xPercent,
               yPercent: yPercent,
+              duration: 1,
+              onComplete: () => console.log("animate completed"),
             });
           }
         });
       };
 
-      animate(group1Refs, "200% bottom");
-      animate(group2Refs, "400% bottom");
-      animate(group3Refs, "600% bottom", 200); // Use 200 for branch of group 3
-      animate(group4Refs, "800% bottom");
-      animate(group5Refs, "1000% bottom");
+      animate(group1Refs, "100% top", 65);
+      animate(group2Refs, "150% top", 60);
+      animate(group3Refs, "200% top", 55); // Use 200 for branch of group 3
+      animate(group4Refs, "250% top", 50);
+      animate(group5Refs, "300% top", 45);
     });
 
     return () => ctx.revert(); // Cleanup animations when component unmounts
@@ -329,7 +333,7 @@ const Leaf = () => {
             src={group3Leaf2}
             alt='Leaf'
             data-group='3'
-            data-position='right'
+            data-position='right-top'
           />
           {/* Group 2 */}
           <img
@@ -412,7 +416,7 @@ const Leaf = () => {
             style={{ opacity: 0 }}
           >
             <div className='flex h-full flex-col items-center justify-center gap-11'>
-              <h1 className='text-center font-mottona text-8xl text-amber-900 md:text-9xl'>
+              <h1 className='bg-gradient-to-br from-amber-900 via-yellow-900 to-lime-900 bg-clip-text text-center font-mottona text-9xl text-[15rem] text-transparent'>
                 <span className='text-8xl'>Les amis de</span> <br />
                 <span>Tobie</span>
               </h1>
@@ -421,7 +425,7 @@ const Leaf = () => {
                 className=''
                 //  style={{ opacity: 0 }}
               >
-                <InputForm />
+                {/* <InputForm /> */}
               </div>
             </div>
           </div>
