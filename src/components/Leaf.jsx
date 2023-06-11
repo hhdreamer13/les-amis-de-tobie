@@ -273,7 +273,7 @@ const Leaf = () => {
         start: "700% top",
         end: "850% center",
         scrub: 1,
-        markers: true,
+        // markers: true,
       },
       opacity: 1,
       duration: 3,
