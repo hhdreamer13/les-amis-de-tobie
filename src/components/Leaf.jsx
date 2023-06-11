@@ -7,7 +7,9 @@ import { ScrollTrigger } from "gsap/all";
 import InputForm from "./InputForm/InputForm";
 
 gsap.registerPlugin(ScrollTrigger);
-ScrollTrigger.normalizeScroll(true);
+
+// Mobile browser screen size unchange with scrolling
+// ScrollTrigger.normalizeScroll(true);
 
 /**
  * Import layers
