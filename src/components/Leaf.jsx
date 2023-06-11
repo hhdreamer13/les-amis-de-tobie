@@ -122,7 +122,6 @@ const Leaf = () => {
               xPercent: xPercent,
               yPercent: yPercent,
               duration: 1,
-              onComplete: () => console.log("animate completed"),
             });
           }
         });
