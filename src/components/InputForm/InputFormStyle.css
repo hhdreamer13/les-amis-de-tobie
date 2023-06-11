@@ -1,7 +1,7 @@
 /* The container for the wave animation */
 .wave-container {
   position: relative; /* establish containing block for absolutely positioned children */
-  width: 400px;
+  /* width: 400px; */
   /* height: 400px; */
   overflow: hidden;
   border-radius: 10px;
@@ -40,7 +40,7 @@
   overflow: hidden;
   padding: 40px 30px 30px 30px;
   border-radius: 10px;
-  width: 400px;
+  /* width: 400px; */
   transition: transform 300ms, box-shadow 300ms;
   /* box-shadow: 0px 10px 10px rgba(2, 128, 144, 0.2); */
 }

@@ -473,11 +473,11 @@ const Leaf = () => {
             className='fullscreenImage absolute'
             style={{ opacity: 0 }}
           >
-            <div className='mt-20 flex h-full flex-col items-center justify-center gap-10 text-center'>
-              <p className='font-["Caveat"] text-3xl leading-normal text-slate-900 drop-shadow-xl'>
+            <div className='mx-2 mt-24 flex h-full flex-col items-center justify-center gap-10 px-2 text-center'>
+              <p className='font-["Caveat"] text-[1.35rem] leading-normal text-slate-900 drop-shadow-xl md:text-3xl'>
                 Tobie et ses amis sont sur le point d'arriver ! <br />
                 Une aventure incroyable nous attend. <br />
-                nous voulons que tu sois parmi les premiers à le savoir.
+                Sois parmi les premiers à le savoir.
               </p>
               <div className='mb-10'>
                 <InputForm />
