@@ -1,22 +1,15 @@
-/* styles.css */
-
-/* Colors */
-
-.login {
-  overflow: hidden;
-  padding: 40px 30px 30px 30px;
-  border-radius: 10px;
-  position: absolute;
-  top: 50%;
-  left: 50%;
+/* The container for the wave animation */
+.wave-container {
+  position: relative; /* establish containing block for absolutely positioned children */
   width: 400px;
-  transform: translate(-50%, -50%);
-  transition: transform 300ms, box-shadow 300ms;
-  /* box-shadow: 5px 10px 10px rgba(2, 128, 144, 0.2); */
+  /* height: 400px; */
+  overflow: hidden;
+  border-radius: 10px;
+  box-shadow: 0px 0px 10px rgba(2, 128, 144, 0.2);
 }
 
-.login::before,
-.login::after {
+.wave-container::before,
+.wave-container::after {
   content: "";
   position: absolute;
   width: 500px;
@@ -28,18 +21,28 @@
   z-index: -1;
 }
 
-.login::before {
+.wave-container::before {
   left: -10%;
   top: 20%;
   background-color: rgba(69, 105, 144, 0.15);
-  animation: wawes 6s infinite linear;
+  animation: wawes 8s infinite linear;
 }
 
-.login::after {
+.wave-container::after {
   left: -10%;
   top: 20%;
   background-color: rgba(2, 128, 144, 0.2);
-  animation: wawes 7s infinite;
+  animation: wawes 10s infinite;
+}
+
+/* The form itself */
+.login {
+  overflow: hidden;
+  padding: 40px 30px 30px 30px;
+  border-radius: 10px;
+  width: 400px;
+  transition: transform 300ms, box-shadow 300ms;
+  /* box-shadow: 0px 10px 10px rgba(2, 128, 144, 0.2); */
 }
 
 .login > input {

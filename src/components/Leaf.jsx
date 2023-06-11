@@ -1,3 +1,4 @@
+/* eslint-disable react/no-unescaped-entities */
 /* eslint-disable import/no-unresolved */
 import { useRef, useLayoutEffect, useEffect } from "react";
 import { gsap } from "gsap";
@@ -53,7 +54,7 @@ for (let i = 0; i < frameCount; i++) {
  * Component
  */
 const Leaf = () => {
-  const scrollPages = 4;
+  const scrollPages = 10;
 
   // Refs
   const group1Refs = useRef([]);
@@ -64,6 +65,7 @@ const Leaf = () => {
 
   const tobieRef = useRef();
   const bgRef = useRef();
+  const bgSecRef = useRef();
 
   const textRef = useRef();
   const formRef = useRef();
@@ -106,12 +108,12 @@ const Leaf = () => {
                 start: "top top", // When the top of the element hits the bottom of the viewport
                 end: end,
                 scrub: 1,
-                markers: {
-                  startColor: "blue",
-                  endColor: "fuchsia",
-                  fontSize: "1rem",
-                  indent: 20,
-                },
+                // markers: {
+                //   startColor: "blue",
+                //   endColor: "fuchsia",
+                //   fontSize: "1rem",
+                //   indent: 20,
+                // },
               },
               xPercent: xPercent,
               yPercent: yPercent,
@@ -197,7 +199,7 @@ const Leaf = () => {
         scrollTrigger: {
           trigger: tobieRef.current,
           scrub: 1,
-          start: "center 0",
+          start: "center top",
           end: "400% bottom",
         },
         onUpdate: () => {
@@ -235,24 +237,54 @@ const Leaf = () => {
       ease: "power2.inOut",
     });
 
+    gsap.to(textRef.current, {
+      scrollTrigger: {
+        trigger: textRef.current,
+        start: "400% top",
+        end: "700% bottom",
+        scrub: 1,
+      },
+      top: "-30vh",
+      color: "white", // change color to white
+      fontSize: "4rem", // make size smaller
+      lineHeight: "2em",
+      duration: 3,
+      ease: "power2.inOut",
+    });
+  }, [textRef]);
+
+  useLayoutEffect(() => {
+    gsap.to(bgSecRef.current, {
+      scrollTrigger: {
+        trigger: bgSecRef.current,
+        start: "400% top",
+        end: "700% center",
+        scrub: 1,
+        // markers: true,
+      },
+      opacity: 1,
+    });
+  }, [bgSecRef]);
+
+  useLayoutEffect(() => {
     gsap.to(formRef.current, {
       scrollTrigger: {
         trigger: formRef.current,
-        start: "500% top",
-        end: "800% bottom",
-        scrub: true,
+        start: "700% top",
+        end: "850% center",
+        scrub: 1,
+        markers: true,
       },
       opacity: 1,
-      y: 0,
-      duration: 1,
+      duration: 3,
       ease: "power2.out",
     });
-  });
+  }, [formRef]);
 
   return (
     <>
       <div style={{ height: `${scrollPages * 100}vh` }}>
-        <div className='fixed h-screen w-full overflow-hidden bg-[#d6fdf9]'>
+        <div className='fixed h-screen w-full overflow-hidden'>
           {/* Background Image */}
           <img
             ref={bgRef}
@@ -409,27 +441,47 @@ const Leaf = () => {
             data-group='1'
             data-position='right-top'
           />
+          <img
+            ref={bgSecRef}
+            style={{ opacity: 0 }}
+            className='fullscreenImage absolute'
+            src='/leaf/bg-secondary.webp'
+            alt='background'
+          />
           {/* Text */}
           <div
             ref={textRef}
             className='fullscreenImage absolute'
+            style={{
+              opacity: 0,
+              fontSize: "11rem",
+              color: "rgb(15 23 42)",
+              lineHeight: "0.9em",
+            }}
+          >
+            <div className='flex h-full flex-col items-center justify-center'>
+              <h1 className='text-center font-mottona'>
+                <span className=''>Les amis de</span> <br />
+                <span className='text-[12rem]'>Tobie</span>
+              </h1>
+            </div>
+          </div>
+          <div
+            ref={formRef}
+            className='fullscreenImage absolute'
             style={{ opacity: 0 }}
           >
-            <div className='flex h-full flex-col items-center justify-center gap-11'>
-              <h1 className='bg-gradient-to-br from-amber-900 via-yellow-900 to-lime-900 bg-clip-text text-center font-mottona text-9xl text-[15rem] text-transparent'>
-                <span className='text-8xl'>Les amis de</span> <br />
-                <span>Tobie</span>
-              </h1>
-              <div
-                ref={formRef}
-                className=''
-                //  style={{ opacity: 0 }}
-              >
-                {/* <InputForm /> */}
+            <div className='mt-20 flex h-full flex-col items-center justify-center gap-10 text-center'>
+              <p className='font-["Caveat"] text-3xl leading-normal text-slate-900 drop-shadow-xl'>
+                Tobie et ses amis sont sur le point d'arriver ! <br />
+                Une aventure incroyable nous attend. <br />
+                nous voulons que tu sois parmi les premiers à le savoir.
+              </p>
+              <div className='mb-10'>
+                <InputForm />
               </div>
             </div>
           </div>
-          {/* Form */}
         </div>
       </div>
     </>

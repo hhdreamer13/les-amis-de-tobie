@@ -3,15 +3,14 @@ import "./InputFormStyle.css";
 
 const InputForm = () => {
   return (
-    <div className='relative'>
+    <div className='wave-container'>
       <form className='login'>
         <input
-          className='rounded-2xl text-rose-500 outline-none transition-all duration-100 placeholder:text-rose-300 focus:border-2 focus:border-solid focus:border-slate-400'
+          className='rounded-2xl text-rose-500 outline-none duration-100 placeholder:text-rose-200 focus:ring-2 focus:ring-slate-500 '
           type='email'
           placeholder='tobie.lolness@exemple.com'
         />
-
-        <p className='px-1 text-slate-600'>
+        <p className='text-center  text-white'>
           Je suis l'ami.e de Tobie, tiens moi au courant !
         </p>
       </form>
