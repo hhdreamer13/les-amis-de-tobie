@@ -486,7 +486,7 @@ const Leaf = () => {
           >
             <div className='flex h-full flex-col items-center justify-center'>
               <h1 className='text-center font-mottona'>
-                <span className=''>Les amis de</span> <br />
+                <span className=''>Les Amis de</span> <br />
                 <span className='text-[12rem]'>Tobie</span>
               </h1>
             </div>

@@ -38,7 +38,7 @@ const InputForm = () => {
 
         <p className='text-center text-white'>
           {isSubmitted
-            ? "Tobie te remercie !"
+            ? "Merci et à très vite !"
             : "Je suis l'ami.e de Tobie, tiens moi au courant !"}
         </p>
         {!isSubmitted && (
