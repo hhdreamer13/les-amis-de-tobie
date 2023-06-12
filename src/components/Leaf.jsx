@@ -48,7 +48,7 @@ const tobie = { frame: 0 }; // Object to keep track of the current frame
 // Load each image frame into the array
 for (let i = 0; i < frameCount; i++) {
   const img = new Image();
-  img.src = `/tobie-run-scene/tobie${i + 1}.png`;
+  img.src = `/tobie-run-scene/tobie${i + 1}.webp`;
   images.push(img);
 }
 
@@ -467,7 +467,7 @@ const Leaf = () => {
           {/* Scroll icon */}
           <div
             ref={scrollRef}
-            className='fullscreenImage absolute flex h-full w-full items-center justify-center'
+            className='fullscreenImage absolute flex h-full w-full rotate-180 items-center justify-center sm:rotate-0'
           >
             <div className='relative h-[60px] w-[30px] rounded-[15px] border-[3px] border-solid border-amber-200'>
               <div className='absolute bottom-[34px] left-1 top-1 w-4 animate-[scroller_2000ms_ease-out_infinite] rounded-lg bg-lime-300'></div>
@@ -479,7 +479,7 @@ const Leaf = () => {
             className='fullscreenImage absolute'
             style={{
               opacity: 0,
-              fontSize: "11rem",
+              fontSize: "10rem",
               color: "rgb(15 23 42)",
               lineHeight: "0.9em",
             }}

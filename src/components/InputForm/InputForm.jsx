@@ -1,21 +1,28 @@
 /* eslint-disable react/no-unescaped-entities */
 import { useState } from "react";
 import "./InputFormStyle.css";
+import { db } from "../../firebase";
+import { collection, addDoc, serverTimestamp } from "firebase/firestore";
 
 const InputForm = () => {
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [email, setEmail] = useState("");
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
-    setIsSubmitted(true);
-    const email = event.target.elements[0].value; // get the value of the first form element, which is your email input field
-    console.log(email); // for testing, remove in production code
-    // Here you can perform actions with the input data, like sending it to a server
+    try {
+      await addDoc(collection(db, "emails"), {
+        email: email,
+        timestamp: serverTimestamp(),
+      });
+      setIsSubmitted(true);
+    } catch (event) {
+      console.error("Error adding document: ", event);
+    }
   };
 
-  const handleChange = (e) => {
-    setEmail(e.target.value);
+  const handleChange = (event) => {
+    setEmail(event.target.value);
   };
 
   return (
