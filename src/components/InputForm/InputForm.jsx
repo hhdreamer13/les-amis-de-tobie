@@ -7,9 +7,34 @@ import { collection, addDoc, serverTimestamp } from "firebase/firestore";
 const InputForm = () => {
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [email, setEmail] = useState("");
+  const [errorMsg, setErrorMsg] = useState("");
 
   const handleSubmit = async (event) => {
     event.preventDefault();
+
+    // Clear previous error message
+    setErrorMsg("");
+
+    // Check if the email is empty
+    if (!email.trim()) {
+      setErrorMsg("Oh non ! t'as oublié ton email.");
+      return;
+    }
+
+    // Check if the email is too long
+    const maxLength = 254; // The maximum length according to the specification
+    if (email.length > maxLength) {
+      setErrorMsg(`Wow! C'est un très long email`);
+      return;
+    }
+
+    // Check if the email format is valid
+    const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!re.test(email)) {
+      setErrorMsg("Hmm, on ne reconnaît pas ce format d'email.");
+      return;
+    }
+
     try {
       await addDoc(collection(db, "emails"), {
         email: email,
@@ -17,7 +42,8 @@ const InputForm = () => {
       });
       setIsSubmitted(true);
     } catch (event) {
-      console.error("Error adding document: ", event);
+      setErrorMsg("Désolé, on rencontre des difficultés techniques.");
+      // console.log(event);
     }
   };
 
@@ -37,12 +63,18 @@ const InputForm = () => {
         />
 
         <p className='text-center text-white'>
-          {isSubmitted
+          {errorMsg
+            ? errorMsg
+            : isSubmitted
             ? "Merci et à très vite !"
             : "Je suis l'ami.e de Tobie, tiens moi au courant !"}
         </p>
+
         {!isSubmitted && (
-          <button type='submit' className='absolute right-9 top-[62px]'>
+          <button
+            type='submit'
+            className='absolute right-9 top-[62px] bg-white'
+          >
             <svg
               width='30px'
               height='30px'
