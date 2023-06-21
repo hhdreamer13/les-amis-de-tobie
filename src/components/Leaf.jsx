@@ -3,8 +3,9 @@
 import { useRef, useLayoutEffect, useEffect } from "react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/all";
+import SplitType from "split-type";
 
-import InputForm from "./InputForm/InputForm";
+import InputForm from "./InputForm";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -34,29 +35,29 @@ import group4Leaf2 from "/leaf/group4-bushes-right.webp";
 import group5Leaf1 from "/leaf/group5-bushes-bottom.webp";
 import group5Leaf2 from "/leaf/group5-rock-right.webp";
 
-import group0Leaf0 from "/leaf/group0-leaf-left-top.webp";
-import group0Leaf1 from "/leaf/group0-leaf-left.webp";
-import group0Leaf2 from "/leaf/group0-leaf-right.webp";
+// import group0Leaf0 from "/leaf/group0-leaf-left-top.webp";
+// import group0Leaf1 from "/leaf/group0-leaf-left.webp";
+// import group0Leaf2 from "/leaf/group0-leaf-right.webp";
 
 /**
  * Tobie frames load
  */
-const frameCount = 41; // Number of frames in your animation
+const frameCount = 49; // Number of frames in your animation
 const images = []; // Array to store your image frames
 const tobie = { frame: 0 }; // Object to keep track of the current frame
 
 // Load each image frame into the array
 for (let i = 0; i < frameCount; i++) {
   const img = new Image();
-  img.src = `/tobie-run-scene/tobie${i + 1}.webp`;
+  img.src = `/tobie/tobie${i + 1}.webp`;
   images.push(img);
 }
 
 /**
  * Component
  */
-const Leaf = () => {
-  const scrollPages = 10;
+const Leaf = ({ showModal, setShowModal }) => {
+  const scrollPages = 11;
 
   // Refs
   const group1Refs = useRef([]);
@@ -69,6 +70,7 @@ const Leaf = () => {
   const bgRef = useRef();
   const bgSecRef = useRef();
 
+  const titleRef = useRef();
   const textRef = useRef();
   const formRef = useRef();
 
@@ -202,8 +204,9 @@ const Leaf = () => {
         scrollTrigger: {
           trigger: tobieRef.current,
           scrub: 1,
-          start: "center top",
+          start: "top top",
           end: "400% bottom",
+          // markers: true,
         },
         onUpdate: () => {
           context.clearRect(0, 0, canvas.width, canvas.height);
@@ -225,12 +228,12 @@ const Leaf = () => {
   }, [tobieRef, bgRef]);
 
   /**
-   * Text animation
+   * Title animation
    */
   useLayoutEffect(() => {
-    gsap.to(textRef.current, {
+    gsap.to(titleRef.current, {
       scrollTrigger: {
-        trigger: textRef.current,
+        trigger: titleRef.current,
         start: "200% top",
         end: "400% bottom",
         scrub: 1,
@@ -240,9 +243,9 @@ const Leaf = () => {
       ease: "power2.inOut",
     });
 
-    gsap.to(textRef.current, {
+    gsap.to(titleRef.current, {
       scrollTrigger: {
-        trigger: textRef.current,
+        trigger: titleRef.current,
         start: "400% top",
         end: "700% bottom",
         scrub: 1,
@@ -254,8 +257,11 @@ const Leaf = () => {
       duration: 3,
       ease: "power2.inOut",
     });
-  }, [textRef]);
+  }, [titleRef]);
 
+  /**
+   * Background Change Animation
+   */
   useLayoutEffect(() => {
     gsap.to(bgSecRef.current, {
       scrollTrigger: {
@@ -269,11 +275,64 @@ const Leaf = () => {
     });
   }, [bgSecRef]);
 
+  /**
+   * Text Animation
+   */
+  useLayoutEffect(() => {
+    if (textRef.current && textRef.current.textContent) {
+      const st = new SplitType(textRef.current, { types: "words" });
+      const words = st.words;
+
+      gsap.set(words, { transformOrigin: "0% 50%" });
+
+      let tl = gsap.timeline({
+        scrollTrigger: {
+          trigger: textRef.current,
+          start: "600% top",
+          end: "850% center",
+          // markers: true,
+          scrub: 1,
+        },
+      });
+
+      tl.from(words, {
+        opacity: 0,
+        y: 20,
+        stagger: 0.1,
+      }).to(words, {
+        opacity: 0,
+        xPercent: (pos, _, arr) =>
+          pos < arr.length / 2
+            ? Math.abs(pos - arr.length / 2) * gsap.utils.random(-20, -10)
+            : Math.abs(pos - arr.length / 2) * gsap.utils.random(10, 20),
+        yPercent: (pos, _, arr) =>
+          Math.abs(pos - arr.length / 2) * gsap.utils.random(-40, -20) - 150,
+        rotationY: (pos, _, arr) =>
+          pos > arr.length / 2
+            ? Math.abs(pos - arr.length / 2) * -15
+            : Math.abs(pos - arr.length / 2) * 15,
+        z: (pos, _, arr) =>
+          Math.abs(pos - arr.length / 2)
+            ? gsap.utils.random(-40, -20)
+            : gsap.utils.random(20, 40),
+        stagger: {
+          each: 0.05,
+          from: "edges",
+        },
+        delay: 1,
+        // stagger: 0.1,
+      });
+    }
+  }, [textRef]);
+
+  /**
+   * Form Animation
+   */
   useLayoutEffect(() => {
     gsap.to(formRef.current, {
       scrollTrigger: {
         trigger: formRef.current,
-        start: "700% top",
+        start: "820% top",
         end: "950% center",
         scrub: 1,
         // markers: true,
@@ -284,6 +343,9 @@ const Leaf = () => {
     });
   }, [formRef]);
 
+  /**
+   * Scroll Animation
+   */
   useLayoutEffect(() => {
     gsap.to(scrollRef.current, {
       scrollTrigger: {
@@ -309,7 +371,7 @@ const Leaf = () => {
             alt='background'
           />
           {/* Still leafs */}
-          <img
+          {/* <img
             className='fullscreenImage absolute'
             src={group0Leaf0}
             alt='Leaf'
@@ -323,7 +385,7 @@ const Leaf = () => {
             className='fullscreenImage absolute'
             src={group0Leaf2}
             alt='Leaf'
-          />
+          /> */}
 
           {/* Tobie animation */}
           <canvas
@@ -475,7 +537,7 @@ const Leaf = () => {
           </div>
           {/* Text Tobie */}
           <div
-            ref={textRef}
+            ref={titleRef}
             className='fullscreenImage absolute'
             style={{
               opacity: 0,
@@ -491,6 +553,19 @@ const Leaf = () => {
               </h1>
             </div>
           </div>
+          {/* Text */}
+          <div className='fullscreenImage absolute'>
+            <div
+              ref={textRef}
+              className='mx-2 flex h-full flex-col items-center justify-center gap-10 px-2 text-center'
+            >
+              <p className='font-["Caveat"] text-[1.35rem] leading-normal text-slate-900 drop-shadow-xl md:text-3xl'>
+                Tobie et ses amis sont sur le point d'arriver ! <br />
+                Une aventure incroyable nous attend. <br />
+                Sois parmi les premiers à le savoir.
+              </p>
+            </div>
+          </div>
           {/* Form */}
           <div
             ref={formRef}
@@ -498,14 +573,7 @@ const Leaf = () => {
             style={{ opacity: 0 }}
           >
             <div className='mx-2 mt-24 flex h-full flex-col items-center justify-center gap-10 px-2 text-center'>
-              <p className='font-["Caveat"] text-[1.35rem] leading-normal text-slate-900 drop-shadow-xl md:text-3xl'>
-                Tobie et ses amis sont sur le point d'arriver ! <br />
-                Une aventure incroyable nous attend. <br />
-                Sois parmi les premiers à le savoir.
-              </p>
-              <div className='mb-10'>
-                <InputForm />
-              </div>
+              <InputForm showModal={showModal} setShowModal={setShowModal} />
             </div>
           </div>
         </div>

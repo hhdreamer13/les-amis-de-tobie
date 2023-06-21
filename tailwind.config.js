@@ -8,6 +8,9 @@ export default {
       },
       fontFamily: {
         mottona: ["mottona", "cursive"],
+        caveat: ["Caveat", "cursive"],
+        delius: ["Delius", "cursive"],
+        nunito: ["Nunito", "sans-serif"],
       },
     },
   },
