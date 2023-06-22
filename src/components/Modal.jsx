@@ -75,7 +75,7 @@ const Modal = ({ showModal, setShowModal }) => {
                 de passer à l'action Nous pouvons contribuer, à notre échelle, à
                 limiter la surconsommation et à sensibiliser les générations
                 futures aux merveilles qui garantiront leur survie. C'est le
-                cœeur du projet Les amis de Tobie.
+                cœur du projet Les amis de Tobie.
               </p>
               <p className='text-justify font-caveat text-xl drop-shadow-sm sm:m-5'>
                 Si vous avez quelque chose à dire ou si vous avez des questions,
