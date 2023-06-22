@@ -365,6 +365,13 @@ const Leaf = ({ showModal, setShowModal }) => {
         trigger: scrollRef.current,
         start: "10% top", // when top of divRef is 10% from top of the viewport
         toggleActions: "play none none reverse",
+        onUpdate: (self) => {
+          if (self.progress === 1) {
+            scrollRef.style.visibility = "hidden";
+          } else if (self.progress < 1) {
+            scrollRef.style.visibility = "visible";
+          }
+        },
         // markers: true,
       },
       autoAlpha: 0,

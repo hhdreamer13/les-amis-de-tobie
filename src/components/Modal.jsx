@@ -130,6 +130,7 @@ const Modal = ({ showModal, setShowModal }) => {
                   className='w-20'
                   src='/kinome-logo.webp'
                   alt='Kinome logo'
+                  loading='lazy'
                 />
               </a>
               <a
@@ -142,6 +143,7 @@ const Modal = ({ showModal, setShowModal }) => {
                   className='w-20'
                   src='/logo-tant-mieux.webp'
                   alt='Tant Mieux Prod logo'
+                  loading='lazy'
                 />
               </a>
               <a
@@ -150,7 +152,12 @@ const Modal = ({ showModal, setShowModal }) => {
                 rel='noopener noreferrer'
                 target='_blank'
               >
-                <img className='w-20' src='/logo-onf.webp' alt='ONF logo' />
+                <img
+                  className='w-20'
+                  src='/logo-onf.webp'
+                  alt='ONF logo'
+                  loading='lazy'
+                />
               </a>
             </div>
           </div>
