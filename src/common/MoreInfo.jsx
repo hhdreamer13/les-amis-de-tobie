@@ -20,7 +20,7 @@ const MoreInfo = ({ handleClick }) => {
           </div>
           <svg
             className='absolute bottom-4 right-4 ml-2 h-5 w-5 place-items-end'
-            fill='#fda4af'
+            fill='#f8fafc'
             viewBox='0 0 32 32'
             version='1.1'
             xmlns='http://www.w3.org/2000/svg'
