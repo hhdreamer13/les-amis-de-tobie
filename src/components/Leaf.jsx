@@ -120,6 +120,13 @@ const Leaf = ({ showModal, setShowModal }) => {
                 start: "top top", // When the top of the element hits the bottom of the viewport
                 end: end,
                 scrub: 1,
+                onUpdate: (self) => {
+                  if (self.progress === 1) {
+                    leaf.style.visibility = "hidden";
+                  } else if (self.progress < 1) {
+                    leaf.style.visibility = "visible";
+                  }
+                },
                 // markers: {
                 //   startColor: "blue",
                 //   endColor: "fuchsia",
@@ -511,10 +518,11 @@ const Leaf = ({ showModal, setShowModal }) => {
           />
           <img
             ref={bgSecRef}
+            loading='lazy'
             style={{ opacity: 0 }}
             className='fullscreenImage absolute'
             src='/leaf/bg-secondary.webp'
-            alt='background Tobie'
+            alt='background Tobie 2'
           />
           {/* Scroll icon */}
           <div
