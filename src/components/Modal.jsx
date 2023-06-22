@@ -57,7 +57,7 @@ const Modal = ({ showModal, setShowModal }) => {
             className='relative mx-auto mt-14 flex max-h-[90vh] w-4/5 flex-col overflow-y-auto rounded-2xl bg-teal-50 pb-6 pt-10 text-center shadow-2xl will-change-transform lg:w-3/5'
           >
             <div className='mx-5 rounded-xl bg-teal-100 px-4 py-10 text-slate-900 shadow-md sm:mx-10'>
-              <h2 className='font-caveat text-2xl drop-shadow-md'>
+              <h2 className='font-caveat  text-2xl drop-shadow-md'>
                 L’arbre comme alternative au merchandising de la série
                 d’animation
                 <h2 className='mt-5 font-mottona text-5xl drop-shadow-md'>
@@ -88,7 +88,7 @@ const Modal = ({ showModal, setShowModal }) => {
                 lesamisdetobie@gmail.com
               </a>
               {/* Close button */}
-              <div className='absolute right-3 top-3 font-delius text-xl'>
+              <div className='font-delius absolute right-3 top-3 text-xl'>
                 <button onClick={handleClose}>
                   <svg
                     width='30px'

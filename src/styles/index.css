@@ -1,5 +1,4 @@
-@import url("https://fonts.googleapis.com/css2?family=Caveat&family=Delius&family=Kaushan+Script&family=Sue+Ellen+Francisco&display=swap");
-@import url("https://fonts.googleapis.com/css2?family=Nunito&display=swap");
+/* @import url("https://fonts.googleapis.com/css2?family=Caveat&family=Delius&family=Kaushan+Script&family=Sue+Ellen+Francisco&display=swap"); */
 
 @tailwind base;
 @tailwind components;
@@ -8,6 +7,12 @@
 @font-face {
   font-family: "mottona";
   src: url("/fonts/mottona.otf");
+  font-display: swap;
+}
+@font-face {
+  font-family: "caveat";
+  src: url("/fonts/caveat.woff2");
+  font-display: swap;
 }
 
 .fullscreenImage {
