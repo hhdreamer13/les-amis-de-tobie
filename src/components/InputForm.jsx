@@ -134,7 +134,11 @@ const InputForm = ({ showModal, setShowModal }) => {
           <MoreInfo handleClick={() => setShowModal(true)} />
         </div>
         {!isSubmitted ? (
-          <button type='submit' className='font-caveat text-white'>
+          <button
+            type='submit'
+            className='font-caveat text-white'
+            aria-label='soumettre'
+          >
             <div className='flex items-center'>
               <div className="inline-block h-8 w-32 -rotate-2 cursor-pointer touch-manipulation select-none rounded-sm border-0 border-solid bg-rose-300 text-center text-lg text-slate-900 no-underline after:absolute after:bottom-1 after:left-1 after:h-[calc(100%_-_1px)] after:w-[calc(100%_-_1px)] after:rounded-sm after:border after:border-solid after:border-slate-900 after:content-[''] hover:after:bottom-0.5 hover:after:left-0.5">
                 Allons-y !

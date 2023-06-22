@@ -89,7 +89,7 @@ const Modal = ({ showModal, setShowModal }) => {
               </a>
               {/* Close button */}
               <div className='font-delius absolute right-3 top-3 text-xl'>
-                <button onClick={handleClose}>
+                <button onClick={handleClose} aria-label='fermer'>
                   <svg
                     width='30px'
                     height='30px'
