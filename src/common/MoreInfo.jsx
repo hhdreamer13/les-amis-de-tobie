@@ -2,7 +2,12 @@ const MoreInfo = ({ handleClick }) => {
   return (
     <div>
       <div className='group justify-end'>
-        <button onClick={handleClick}>
+        <button
+          onClick={(e) => {
+            e.preventDefault();
+            handleClick();
+          }}
+        >
           <div className='absolute bottom-4 right-4 ml-2 h-5 w-5 place-items-end group-hover:animate-ping'>
             <svg
               viewBox='0 0 32 32'
