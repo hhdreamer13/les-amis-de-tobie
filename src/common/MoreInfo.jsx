@@ -11,7 +11,7 @@ const MoreInfo = ({ handleClick }) => {
           <div className='absolute bottom-4 right-4 ml-2 h-5 w-5 place-items-end group-hover:animate-ping'>
             <svg
               viewBox='0 0 32 32'
-              fill='#fecaca'
+              fill='#fda4af'
               version='1.1'
               xmlns='http://www.w3.org/2000/svg'
             >
@@ -20,7 +20,7 @@ const MoreInfo = ({ handleClick }) => {
           </div>
           <svg
             className='absolute bottom-4 right-4 ml-2 h-5 w-5 place-items-end'
-            fill='#fecaca'
+            fill='#fda4af'
             viewBox='0 0 32 32'
             version='1.1'
             xmlns='http://www.w3.org/2000/svg'

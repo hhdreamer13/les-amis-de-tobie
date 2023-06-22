@@ -11,6 +11,12 @@ gsap.registerPlugin(ScrollTrigger);
 
 // Mobile browser screen size unchange with scrolling
 // ScrollTrigger.normalizeScroll(true);
+ScrollTrigger.config({ ignoreMobileResize: true });
+
+gsap.config({
+  autoSleep: 30,
+  force3D: true,
+});
 
 /**
  * Import layers
@@ -362,30 +368,14 @@ const Leaf = ({ showModal, setShowModal }) => {
   return (
     <>
       <div style={{ height: `${scrollPages * 100}vh` }}>
-        <div className='fixed h-screen w-full overflow-hidden'>
+        <main className='fixed h-screen w-full overflow-hidden'>
           {/* Background Image */}
           <img
             ref={bgRef}
             className='fullscreenImage absolute'
             src='/leaf/bg-1080.webp'
-            alt='background'
+            alt='background 1 Tobie'
           />
-          {/* Still leafs */}
-          {/* <img
-            className='fullscreenImage absolute'
-            src={group0Leaf0}
-            alt='Leaf'
-          />
-          <img
-            className='fullscreenImage absolute'
-            src={group0Leaf1}
-            alt='Leaf'
-          />
-          <img
-            className='fullscreenImage absolute'
-            src={group0Leaf2}
-            alt='Leaf'
-          /> */}
 
           {/* Tobie animation */}
           <canvas
@@ -399,7 +389,7 @@ const Leaf = ({ showModal, setShowModal }) => {
             ref={(el) => group5Refs.current.push(el)}
             className='fullscreenImage absolute'
             src={group5Leaf1}
-            alt='Leaf'
+            alt='Decor Tobie'
             data-group='5'
             data-position='bottom'
           />
@@ -407,7 +397,7 @@ const Leaf = ({ showModal, setShowModal }) => {
             ref={(el) => group5Refs.current.push(el)}
             className='fullscreenImage absolute'
             src={group5Leaf2}
-            alt='Leaf'
+            alt='Decor Tobie'
             data-group='5'
             data-position='right-bottom'
           />
@@ -416,7 +406,7 @@ const Leaf = ({ showModal, setShowModal }) => {
             ref={(el) => group4Refs.current.push(el)}
             className='fullscreenImage absolute'
             src={group4Leaf1}
-            alt='Leaf'
+            alt='Decor Tobie'
             data-group='4'
             data-position='left-bottom'
           />
@@ -424,7 +414,7 @@ const Leaf = ({ showModal, setShowModal }) => {
             ref={(el) => group4Refs.current.push(el)}
             className='fullscreenImage absolute'
             src={group4Leaf2}
-            alt='Leaf'
+            alt='Decor Tobie'
             data-group='4'
             data-position='right-bottom'
           />
@@ -433,7 +423,7 @@ const Leaf = ({ showModal, setShowModal }) => {
             ref={(el) => group3Refs.current.push(el)}
             className='fullscreenImage absolute'
             src={group3Leaf1}
-            alt='Leaf'
+            alt='Decor Tobie'
             data-group='3'
             data-position='left'
           />
@@ -441,7 +431,7 @@ const Leaf = ({ showModal, setShowModal }) => {
             ref={(el) => group3Refs.current.push(el)}
             className='fullscreenImage absolute'
             src={group3Leaf2}
-            alt='Leaf'
+            alt='Decor Tobie'
             data-group='3'
             data-position='right-top'
           />
@@ -450,7 +440,7 @@ const Leaf = ({ showModal, setShowModal }) => {
             ref={(el) => group2Refs.current.push(el)}
             className='fullscreenImage absolute'
             src={group2Leaf1}
-            alt='Leaf'
+            alt='Decor Tobie'
             data-group='2'
             data-position='bottom'
           />
@@ -458,7 +448,7 @@ const Leaf = ({ showModal, setShowModal }) => {
             ref={(el) => group2Refs.current.push(el)}
             className='fullscreenImage absolute'
             src={group2Leaf2}
-            alt='Leaf'
+            alt='Decor Tobie'
             data-group='2'
             data-position='left-bottom'
           />
@@ -466,7 +456,7 @@ const Leaf = ({ showModal, setShowModal }) => {
             ref={(el) => group2Refs.current.push(el)}
             className='fullscreenImage absolute'
             src={group2Leaf3}
-            alt='Leaf'
+            alt='Decor Tobie'
             data-group='2'
             data-position='left-top'
           />
@@ -474,7 +464,7 @@ const Leaf = ({ showModal, setShowModal }) => {
             ref={(el) => group2Refs.current.push(el)}
             className='fullscreenImage absolute'
             src={group2Leaf4}
-            alt='Leaf'
+            alt='Decor Tobie'
             data-group='2'
             data-position='right-top'
           />
@@ -482,7 +472,7 @@ const Leaf = ({ showModal, setShowModal }) => {
             ref={(el) => group2Refs.current.push(el)}
             className='fullscreenImage absolute'
             src={group2Leaf5}
-            alt='Leaf'
+            alt='Decor Tobie'
             data-group='2'
             data-position='right'
           />
@@ -491,7 +481,7 @@ const Leaf = ({ showModal, setShowModal }) => {
             ref={(el) => group1Refs.current.push(el)}
             className='fullscreenImage absolute'
             src={group1Leaf1}
-            alt='Leaf'
+            alt='Decor Tobie'
             data-group='1'
             data-position='left-bottom'
           />
@@ -499,7 +489,7 @@ const Leaf = ({ showModal, setShowModal }) => {
             ref={(el) => group1Refs.current.push(el)}
             className='fullscreenImage absolute'
             src={group1Leaf2}
-            alt='Leaf'
+            alt='Decor Tobie'
             data-group='1'
             data-position='left-top'
           />
@@ -507,7 +497,7 @@ const Leaf = ({ showModal, setShowModal }) => {
             ref={(el) => group1Refs.current.push(el)}
             className='fullscreenImage absolute'
             src={group1Leaf3}
-            alt='Leaf'
+            alt='Decor Tobie'
             data-group='1'
             data-position='right-bottom'
           />
@@ -515,7 +505,7 @@ const Leaf = ({ showModal, setShowModal }) => {
             ref={(el) => group1Refs.current.push(el)}
             className='fullscreenImage absolute'
             src={group1Leaf4}
-            alt='Leaf'
+            alt='Decor Tobie'
             data-group='1'
             data-position='right-top'
           />
@@ -524,7 +514,7 @@ const Leaf = ({ showModal, setShowModal }) => {
             style={{ opacity: 0 }}
             className='fullscreenImage absolute'
             src='/leaf/bg-secondary.webp'
-            alt='background'
+            alt='background Tobie'
           />
           {/* Scroll icon */}
           <div
@@ -536,7 +526,7 @@ const Leaf = ({ showModal, setShowModal }) => {
             </div>
           </div>
           {/* Text Tobie */}
-          <div
+          <header
             ref={titleRef}
             className='fullscreenImage absolute'
             style={{
@@ -552,22 +542,22 @@ const Leaf = ({ showModal, setShowModal }) => {
                 <span className='text-[12rem]'>Tobie</span>
               </h1>
             </div>
-          </div>
+          </header>
           {/* Text */}
-          <div className='fullscreenImage absolute'>
+          <section className='fullscreenImage absolute'>
             <div
               ref={textRef}
               className='mx-2 flex h-full flex-col items-center justify-center gap-10 px-2 text-center'
             >
-              <p className='font-["Caveat"] text-[1.35rem] leading-normal text-slate-900 drop-shadow-xl md:text-3xl'>
+              <h2 className='font-caveat text-2xl leading-normal text-slate-900 md:text-3xl'>
                 Tobie et ses amis sont sur le point d'arriver ! <br />
                 Une aventure incroyable nous attend. <br />
                 Sois parmi les premiers à le savoir.
-              </p>
+              </h2>
             </div>
-          </div>
+          </section>
           {/* Form */}
-          <div
+          <section
             ref={formRef}
             className='fullscreenImage absolute'
             style={{ opacity: 0 }}
@@ -575,8 +565,8 @@ const Leaf = ({ showModal, setShowModal }) => {
             <div className='mx-2 mt-24 flex h-full flex-col items-center justify-center gap-10 px-2 text-center'>
               <InputForm showModal={showModal} setShowModal={setShowModal} />
             </div>
-          </div>
-        </div>
+          </section>
+        </main>
       </div>
     </>
   );

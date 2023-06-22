@@ -1,5 +1,5 @@
 /* eslint-disable react/no-unescaped-entities */
-import { useEffect, useRef } from "react";
+import { useLayoutEffect, useRef } from "react";
 import { gsap } from "gsap";
 
 const Modal = ({ showModal, setShowModal }) => {
@@ -23,19 +23,23 @@ const Modal = ({ showModal, setShowModal }) => {
     });
   };
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     // enter animation
     if (showModal) {
-      gsap.fromTo(
-        modalRef.current,
-        { opacity: 0 },
-        { opacity: 1, duration: 1, ease: "power2.out" }
-      );
-      gsap.fromTo(
-        contentRef.current,
-        { y: "-100vh" },
-        { y: 0, duration: 2, delay: 0.3, ease: "elastic.out(1, 0.5)" }
-      );
+      gsap.set(modalRef.current, { opacity: 0 });
+      gsap.set(contentRef.current, { y: "-100vh" });
+
+      gsap.to(modalRef.current, {
+        opacity: 1,
+        duration: 1,
+        ease: "power2.out",
+      });
+      gsap.to(contentRef.current, {
+        y: 0,
+        duration: 1,
+        delay: 0.3,
+        ease: "back.out(1.7)",
+      });
     }
   }, [showModal]);
 
@@ -50,7 +54,7 @@ const Modal = ({ showModal, setShowModal }) => {
           <div
             ref={contentRef}
             style={{ transform: "translateY(-100vh)" }}
-            className='relative mx-auto mt-14 flex max-h-[90vh] w-4/5 flex-col overflow-y-auto rounded-2xl bg-teal-50 pb-6 pt-10 text-center shadow-2xl lg:w-3/5'
+            className='relative mx-auto mt-14 flex max-h-[90vh] w-4/5 flex-col overflow-y-auto rounded-2xl bg-teal-50 pb-6 pt-10 text-center shadow-2xl will-change-transform lg:w-3/5'
           >
             <div className='mx-5 rounded-xl bg-teal-100 px-4 py-10 text-slate-900 shadow-md sm:mx-10'>
               <h2 className='font-caveat text-2xl drop-shadow-md'>
