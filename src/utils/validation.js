@@ -1,6 +1,6 @@
 export const required = (value) => {
   if (!value.trim()) {
-    return "Eh bien, ce champ semble un peu seul.";
+    return "Ohé, ne m'oublie pas !";
   }
 
   return null; // no error
@@ -8,7 +8,7 @@ export const required = (value) => {
 
 export const minLength = (min) => (value) => {
   if (value.length < min) {
-    return `Allez, tu peux faire mieux!`;
+    return `Continue, c'est un bon début.`;
   }
 
   return null; // no error
@@ -26,7 +26,7 @@ export const emailValidation = (value) => {
   const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
   if (!re.test(value)) {
-    return "Hmm, cet e-mail semble un peu étrange.";
+    return "Ton e-mail semble incomplet...";
   }
 
   return null; // no error
@@ -34,14 +34,14 @@ export const emailValidation = (value) => {
 
 export const number = (value) => {
   if (isNaN(value)) {
-    return "Hé, c'est un peu bizarre. On cherche un chiffre.";
+    return "Chiffres seulement, s'il te plaît.";
   }
   return null;
 };
 
 export const isTrue = (value) => {
   if (!value) {
-    return "Oh, as-tu oublié de cocher cette case ?";
+    return "Un petit clic sur la case, peut-être ?";
   }
   return null;
 };
