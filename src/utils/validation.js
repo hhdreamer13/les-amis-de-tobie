@@ -32,11 +32,14 @@ export const emailValidation = (value) => {
   return null; // no error
 };
 
-export const number = (value) => {
-  if (isNaN(value)) {
-    return "Chiffres seulement, s'il te plaît.";
+export const postalCodeValidation = (value) => {
+  const re = /^[a-zA-Z0-9-\s]*$/;
+
+  if (!re.test(value)) {
+    return "Le code postal semble incorrect...";
   }
-  return null;
+
+  return null; // no error
 };
 
 export const isTrue = (value) => {

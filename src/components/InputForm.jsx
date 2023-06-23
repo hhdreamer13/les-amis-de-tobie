@@ -8,7 +8,7 @@ import {
   minLength,
   maxLength,
   emailValidation,
-  number,
+  postalCodeValidation,
 } from "../utils/validation";
 import Checkbox from "../common/Checkbox";
 import MoreInfo from "../common/MoreInfo";
@@ -98,7 +98,12 @@ const InputForm = ({ showModal, setShowModal }) => {
           type='text'
           placeholder='Code postal'
           onChange={setPostalCode}
-          validation={[required, minLength(2), maxLength(10), number]}
+          validation={[
+            required,
+            minLength(2),
+            maxLength(10),
+            postalCodeValidation,
+          ]}
           setErrorsCount={setErrorsCount}
           disabled={isSubmitted}
         />
