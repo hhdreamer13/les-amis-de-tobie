@@ -63,7 +63,7 @@ for (let i = 0; i < frameCount; i++) {
  * Component
  */
 const Leaf = ({ showModal, setShowModal }) => {
-  const scrollPages = 12;
+  const scrollPages = 11;
 
   // Refs
   const group1Refs = useRef([]);
